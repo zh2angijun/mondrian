@@ -19,7 +19,7 @@ buildProperties:
 
   JOB_ITEM_DEFAULTS :
     dockerImage     : jenkins-build/maven/oracle-jdk/8
-    scmBranch       : master
+    scmBranch       : 9.0
 
 jobGroups:
   200:
