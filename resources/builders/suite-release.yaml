@@ -12,8 +12,6 @@ buildProperties:
 
   MAVEN_PUBLIC_RELEASE_REPO_URL  : http://orl-jfrog-lb.pentaho.net/artifactory/pntpub-mvn-dev-orl/
   MAVEN_PRIVATE_RELEASE_REPO_URL : http://orl-jfrog-lb.pentaho.net/artifactory/pntprv-mvn-dev-orl/
-  DOCKER_IMAGE_HOST              : pntprv-docker-release.orl-jfrog-lb.pentaho.net
-  DOCKER_REGISTRY_URL            : http://pntprv-docker-release.orl-jfrog-lb.pentaho.net
   ARCHIVING_PATH_GROUP_REGEX     : '.*/target/(?:(windows|linux|mac)(?!.*(dependencies)).*/)?'
 
   # Version based control properties
