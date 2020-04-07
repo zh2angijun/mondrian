@@ -20,11 +20,11 @@ buildProperties:
   # Version based control properties
   RUN_STAGE_VERSION              : ${RUN_STAGE_BUILD}
   VERSION_MERGER_LOG_LEVEL       : WARN
-  RELEASE_VERSION                : 9.0.0.2
+  RELEASE_VERSION                : 9.0.0.3
   DEPLOYMENT_FOLDER              : 9.0-QAT
   RELEASE_MODE                   : true
   DEFAULT_BRANCH                 : '9.0'
-  SUITE_BUILD_RESOURCES_BRANCH   : 9.0.0.2
+  SUITE_BUILD_RESOURCES_BRANCH   : 9.0.0.3
   SERVICEPACK_BRANCH             : '9.0'
   JENKINS_FOLDER_NAME            : '9.0'
 
