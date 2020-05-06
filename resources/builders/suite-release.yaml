@@ -10,34 +10,34 @@ buildProperties:
     build: clean deploy -DskipTests -Drelease
     test: test
 
-  MAVEN_PUBLIC_RELEASE_REPO_URL  : https://repo.orl.eng.hitachivantara.com/artifactory/pntpub-mvn-dev-orl/
-  MAVEN_PRIVATE_RELEASE_REPO_URL : https://repo.orl.eng.hitachivantara.com/artifactory/pntprv-mvn-dev-orl/
+  MAVEN_PUBLIC_RELEASE_REPO_URL  : https://repo.orl.eng.hitachivantara.com/artifactory/pntpub-mvn-release-orl/
+  MAVEN_PRIVATE_RELEASE_REPO_URL : https://repo.orl.eng.hitachivantara.com/artifactory/pntprv-mvn-release-orl/
   ARCHIVING_PATH_GROUP_REGEX     : '.*/target/(?:(windows|linux|mac)(?!.*(dependencies)).*/)?'
 
-  DOCKER_PUBLIC_PUSH_REPO     : pntpub-docker-dev-orl.repo.orl.eng.hitachivantara.com/
-  DOCKER_PRIVATE_PUSH_REPO    : pntprv-docker-dev-orl.repo.orl.eng.hitachivantara.com/
+  DOCKER_PUBLIC_PUSH_REPO     : pntpub-docker-release-orl.repo.orl.eng.hitachivantara.com/
+  DOCKER_PRIVATE_PUSH_REPO    : pntprv-docker-release-orl.repo.orl.eng.hitachivantara.com/
 
   # Version based control properties
   RUN_STAGE_VERSION              : ${RUN_STAGE_BUILD}
   VERSION_MERGER_LOG_LEVEL       : WARN
   RELEASE_VERSION                : 9.0.0.3
-  DEPLOYMENT_FOLDER              : 9.0-QAT
+  DEPLOYMENT_FOLDER              : 9.0.0.3
   RELEASE_MODE                   : true
-  DEFAULT_BRANCH                 : '9.0'
+  DEFAULT_BRANCH                 : 9.0.0.3
   SUITE_BUILD_RESOURCES_BRANCH   : 9.0.0.3
-  SERVICEPACK_BRANCH             : '9.0'
+  SERVICEPACK_BRANCH             : ${DEFAULT_BRANCH}
   JENKINS_FOLDER_NAME            : '9.0'
 
   JOB_ITEM_DEFAULTS:
     dockerImage : jenkins-build/maven/oracle-jdk/8
-    scmBranch   : '9.0'
+    scmBranch   : ${DEFAULT_BRANCH}
 
   # We need to override this until this pipeline is the nightly
   BUILD_HOSTING_ROOT: /build2/artifacts/hosted
 
   # Tagging
   RUN_STAGE_TAG: true
-  TAG_NAME: ${RELEASE_VERSION}-RC
+  TAG_NAME: ${RELEASE_VERSION}-R
 
   # Reports
   BUILD_ORDER_REPORT  : true
@@ -45,14 +45,14 @@ buildProperties:
   BUILD_SLACK_CHANNEL : 'buildteam-alerts'
   SLACK_INTEGRATION   : true
   SLACK_CHANNEL:
-    BUILD_FAILURE     : 'tatooine,buildteam-alerts'
+    BUILD_FAILURE     : 'buildteam-alerts'
     BUILD_ABORTED     : 'buildteam-alerts'
-    BUILD_UNSTABLE    : 'tatooine,buildteam-alerts'
-    BUILD_SUCCESS     : 'tatooine,buildteam-alerts'
+    BUILD_UNSTABLE    : 'buildteam-alerts'
+    BUILD_SUCCESS     : 'buildteam-alerts'
 
   # SP specific parameters
-  PREVIOUS_RELEASE_VERSION       : '9.0.0.0-423'
-  SP_RELEASE_VERSION             : '202002'
+  PREVIOUS_RELEASE_VERSION       : '9.0.0.2-544'
+  SP_RELEASE_VERSION             : '202005'
   DO_AUTO_PATCH                  : false
 
 jobGroups:
@@ -238,14 +238,6 @@ jobGroups:
      - jobID           :  big-data-hadoop-shims-common
        scmUrl          :  https://github.com/pentaho/pentaho-hadoop-shims.git
        directives      :  += -DskipDefault -P common
-       versionProperty :  pentaho-hadoop-shims.version
-       
-  1420:
-     - jobID           :  big-data-hadoop-shims
-       scmUrl          :  https://github.com/pentaho/pentaho-hadoop-shims.git
-       directives      :  += -DskipDefault -P all
-       archivable      :  true
-       root            :  shims
        versionProperty :  pentaho-hadoop-shims.version
 
   1500:
@@ -464,13 +456,6 @@ jobGroups:
        versionProperty :  pentaho-reporting-plugin.version
 
   3000:
-     - jobID           :  big-data-hadoop-shims-ee
-       scmUrl          :  https://github.com/pentaho/pentaho-big-data-ee.git
-       directives      :  += -DskipDefault -P base,all -Deula-wrap
-       archivable      :  true
-       atomicScmCheckout: true
-       versionProperty :  pentaho-hadoop-shims.version
-
      - jobID           :  cda-plugin
        scmUrl          :  https://github.com/webdetails/cda.git
        versionProperty :  pentaho-cda-plugin.version
